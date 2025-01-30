@@ -1,0 +1,23 @@
+---
+title: "1-30.qmd"
+format: html
+editor: visual
+---
+
+## Notes
+
+data.table\<- variant on a table frame, package really designed for fast operations on large data structures
+
+tibble\<-slower than data.table all tabular data structures
+
+
+\## Running Code
+
+```{r}
+1 + 1
+```
+
+```{r}
+#| echo: false
+2 * 2
+```
