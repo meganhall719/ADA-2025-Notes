@@ -10,14 +10,77 @@ data.table\<- variant on a table frame, package really designed for fast operati
 
 tibble\<-slower than data.table all tabular data structures
 
-
 \## Running Code
 
 ```{r}
-1 + 1
+library(tidyverse)
+f<-"https://raw.githubusercontent.com/difiore/ada-datasets/refs/heads/main/KamilarAndCooperData.csv"
+d <- read_csv(f, col_names = TRUE)
+names(d)
+col(d)
+head(d)
+rownames(d)
 ```
 
 ```{r}
 #| echo: false
 2 * 2
+```
+
+```{r}
+
+mean(d$Brain_Size_Species_Mean, na.rm = TRUE)
+
+attach(d)
+mean(Brain_Size_Species_Mean, na.rm = TRUE)
+
+```
+
+attach(d) allows you to not have to do d\$Brain_Size_Species_Mean don't have too constantly specify your variables na.rm needed because mean function can't handle NA
+
+```{r}
+detach(d)
+with(d,Body_mass_female_mean, na.rm = TRUE)
+```
+
+# Tidy Data
+
+tidy data is a way to organize tabular data in a consistent data structure across packages. a table is tidy if : each table is in a column
+
+### Not tidy Data
+
+sometimes you will need to switch between the two between (tidy/not tidy)
+
+#### long data
+
+one way data cannot be tidy
+
+# Variable summaries
+
+```{r}
+summary(d)
+library(skmir)
+skim(d)
+```
+
+# Box Plot
+
+```{r}
+
+boxplot(log(d$Body_mass_female_mean))
+stripchart(log(d$Body_mass_female_mean),
+           method="jitter",
+           col = "blue",
+           vertical = TRUE, 
+           add = TRUE)
+```
+
+## Using {ggplot2}
+
+```{r}
+library(ggplot2)
+p <- ggplot(data = d, aes(x="", y = log(d$Body_mass_female_mean)))
+p <- p + geom_point(na.rm = TRUE)
+p <- p + geom_jitter( color = "blue", width = 0.5)
+p
 ```
